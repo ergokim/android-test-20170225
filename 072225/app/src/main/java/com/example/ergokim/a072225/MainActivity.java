@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         if (requestCode == REQUEST_CODE_INPUT) {
-            String name = data.getStringExtra("name");
-            String email = data.getStringExtra("email");
+            String name = data.getStringExtra(InputActivity.KEY_NAME);
+            String email = data.getStringExtra(InputActivity.KEY_EMAIL);
             Log.i("###", "onActivityResult: |" + name + "|" + email + "|");
 
             textNames.append(name + "(" + email + ")\n");
