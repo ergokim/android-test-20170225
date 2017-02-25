@@ -3,20 +3,14 @@ package com.example.ergokim.a072225;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_CODE_INPUT = 123;
-
 
     TextView textNames;
 
@@ -26,12 +20,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textNames = (TextView) findViewById(R.id.text_names);
-        findViewById(R.id.button_input).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), InputActivity.class), REQUEST_CODE_INPUT);
-            }
-        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add) {
+            startActivityForResult(new Intent(getApplicationContext(), InputActivity.class), REQUEST_CODE_INPUT);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

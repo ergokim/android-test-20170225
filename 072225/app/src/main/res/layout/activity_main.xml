@@ -9,16 +9,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="input" />
-
         <TextView
             android:id="@+id/text_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="메뉴를 클릭하세요"
             tools:text="name here" />
     </LinearLayout>
 </ScrollView>
