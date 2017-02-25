@@ -3,7 +3,9 @@ package com.example.ergokim.a072225;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,8 +32,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = editName.getText().toString();
                 Log.i("###", "onClick: name = " + name);
-                textNames.setText(name);
+                textNames.append("\n" + name);
                 editName.setText(null);
+            }
+        });
+
+        editName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(EditorInfo.IME_ACTION_DONE == actionId){
+                    String name = editName.getText().toString();
+                    Log.i("###", "onClick: name = " + name);
+                    textNames.append("\n" + name);
+                    editName.setText(null);
+                }
+                return false;
             }
         });
     }
