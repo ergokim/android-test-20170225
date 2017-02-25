@@ -2,6 +2,7 @@ package com.example.ergokim.a072225;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void inputName() {
         String name = editName.getText().toString();
-        Log.i("###", "inputName: name = " + name);
+        Log.i("###", "111 inputName: name = |" + name + "|");
+
+        if (TextUtils.isEmpty(name))
+            return;
+
+        Log.i("###", "222 inputName: name = |" + name + "|");
         textNames.append("\n" + name);
         editName.setText(null);
     }
