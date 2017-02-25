@@ -1,5 +1,6 @@
 package com.example.ergokim.a072225;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,8 +15,9 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+    private final static int REQUEST_CODE_INPUT = 123;
 
-    EditText editName;
+
     TextView textNames;
 
     @Override
@@ -23,42 +25,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonOk = (Button) findViewById(R.id.button_ok);
-        editName = (EditText) findViewById(R.id.edit_name);
         textNames = (TextView) findViewById(R.id.text_names);
-
-
-        buttonOk.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_input).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                inputName();
-            }
-        });
-
-        editName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (EditorInfo.IME_ACTION_DONE == actionId) {
-                    inputName();
-                }
-                return false;
+                startActivityForResult(new Intent(getApplicationContext(), InputActivity.class), REQUEST_CODE_INPUT);
             }
         });
     }
 
-    /**
-     * 버튼 클릭하면  입력된 이름을 텍스트뷰로 보내기<br>
-     * 입력필드 비우기
-     */
-    private void inputName() {
-        String name = editName.getText().toString();
-        Log.i("###", "111 inputName: name = |" + name + "|");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if (TextUtils.isEmpty(name))
+        if (resultCode != RESULT_OK)
             return;
 
-        Log.i("###", "222 inputName: name = |" + name + "|");
-        textNames.append("\n" + name);
-        editName.setText(null);
+        if (requestCode == REQUEST_CODE_INPUT) {
+            String name = data.getStringExtra("name");
+            String email = data.getStringExtra("email");
+            Log.i("###", "onActivityResult: |" + name + "|" + email + "|");
+
+            textNames.append(name + "(" + email + ")\n");
+        }
     }
 }
+
